@@ -3,30 +3,50 @@
 // Update a note
 // Delete a note
 
-export const notes = [
+const notes = [
   {
-    id: '0',
+    id: '1',
     title: 'Another note',
     categories: ['spanish', 'english', 'german'],
     body: 'another note body',
   },
-  {id: '1', title: 'A note', categories: 'test', body: 'Great note!'},
-  {id: '2', title: 'Hoho', categories: 'test', body: 'Lorem ipsum'},
+  {id: '2', title: 'A note', categories: 'test', body: 'Great note!'},
+  {id: '3', title: 'Hoho', categories: 'test', body: 'Lorem ipsum'},
 ]
 
-export const createNote = (note) => {
-  console.log('Create Note')
+export const createNote = (title, categories, body) => {
+  const note = {
+    id: notes.length + 1,
+    title,
+    categories,
+    body,
+  }
+  notes.push(note)
+  return note
 }
 
 export const getNote = (id) => {
-  notes.find((element) => element.id === id)
-  console.log('called id', id)
+  return notes.find((note) => note.id === id)
 }
 
-export const updateNote = (id, title, body) => {
-  console.log('Update Note')
+export function getNotes() {
+  return notes
+}
+
+export const updateNote = (id, title, categories, body) => {
+  const indexToUpdate = notes.findIndex((note) => note.id === id)
+  const note = {
+    id,
+    title,
+    categories,
+    body,
+  }
+  notes.splice(indexToUpdate, 1, note)
+  return note
 }
 
 export const deleteNote = (id) => {
-  console.log('Delete Note')
+  const indexToDelete = notes.findIndex((note) => note.id === id)
+  notes.splice(indexToDelete, 1)
+  return true
 }

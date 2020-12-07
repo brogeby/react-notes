@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Editor from './components/Editor'
 import ListTitles from './components/ListTitles'
-import ListCategories from './components/ListCategories'
+// import ListCategories from './components/ListCategories'
 
 import {createNote, getNote, updateNote, deleteNote} from './utils/noteHelpers'
 
@@ -29,7 +29,6 @@ function App() {
       </Row>
       <Row>
         <Col xs={12} md={12}>
-          <h2>New Notes / Editor</h2>
           <Button variant="primary" className="mb-3">
             New Note
           </Button>
@@ -52,7 +51,6 @@ function App() {
           <ListCategories />
         </Col> */}
         <Col xs={12} md={6} className="mt-5">
-          <h2>Titles</h2>
           <ListTitles />
         </Col>
       </Row>
