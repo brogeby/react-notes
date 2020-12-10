@@ -1,23 +1,39 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import * as N from './utils/noteHelpers'
 
 import Editor from './components/Editor'
 import ListTitles from './components/ListTitles'
-// import ListCategories from './components/ListCategories'
+import ThemeButton from './components/ThemeButton'
 
-import {createNote, getNote, updateNote, deleteNote} from './utils/noteHelpers'
+import {getNotes} from './utils/noteHelpers'
 
-createNote(3)
-getNote(3)
-updateNote(3)
-deleteNote(3)
+console.log(N.getNotes())
 
 function App() {
+  const [selectedNote, setSelectedNote] = useState(undefined)
+  const [notes, setNotes] = useState([])
+
+  useEffect(() => {
+    const notes = getNotes()
+    setNotes(notes)
+  }, [])
+
+  const refreshList = () => {
+    setSelectedNote(undefined)
+    const notes = getNotes()
+    setNotes([...notes])
+  }
+
+  const onClickNewNote = () => {
+    setSelectedNote(undefined)
+  }
+
   return (
     <Container>
       <Row>
@@ -29,20 +45,11 @@ function App() {
       </Row>
       <Row>
         <Col xs={12} md={12}>
-          <Button variant="primary" className="mb-3">
+          <Button onClick={onClickNewNote} variant="dark" className="mb-3">
             New Note
           </Button>
-          <Editor />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Button variant="success" className="mr-3">
-            Save
-          </Button>
-          <Button variant="danger" className="mr-3">
-            Delete
-          </Button>
+          <ThemeButton />
+          <Editor refreshList={refreshList} selectedNote={selectedNote} />
         </Col>
       </Row>
       <Row>
@@ -51,7 +58,7 @@ function App() {
           <ListCategories />
         </Col> */}
         <Col xs={12} md={6} className="mt-5">
-          <ListTitles />
+          <ListTitles notes={notes} selectedNote={selectedNote} setSelectedNote={setSelectedNote} />
         </Col>
       </Row>
     </Container>
