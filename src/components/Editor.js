@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
-import {createNote, updateNote, deleteNote} from '../utils/noteHelpers'
+import {createLocalNote, updateLocalNote, deleteLocalNote} from '../utils/noteHelpers'
 
 const STATUS_INTIAL_VALUE = ''
 
@@ -46,17 +46,17 @@ export default function Editor({selectedNote, setSelectedNote, refreshList}) {
     setStatus('Saved!')
     setAlertVariant('success')
     if (selectedNote) {
-      updateNote(selectedNote.id, title, categories, body)
+      updateLocalNote(selectedNote.id, title, categories, body)
       return refreshList()
     }
-    createNote(title, categories, body)
+    createLocalNote(title, categories, body)
     refreshList()
   }
 
   const onDelete = (e) => {
     e.preventDefault()
     const {id} = selectedNote
-    deleteNote(id)
+    deleteLocalNote(id)
     refreshList()
     clearFields()
     setStatus('Deleted!')

@@ -5,28 +5,25 @@ import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import * as N from './utils/noteHelpers'
-
 import Editor from './components/Editor'
 import ListTitles from './components/ListTitles'
 import ThemeButton from './components/ThemeButton'
+import {getLocalNotes} from './utils/noteHelpers'
 
-import {getNotes} from './utils/noteHelpers'
-
-console.log(N.getNotes())
+getLocalNotes()
 
 function App() {
   const [selectedNote, setSelectedNote] = useState(undefined)
   const [notes, setNotes] = useState([])
 
   useEffect(() => {
-    const notes = getNotes()
+    const notes = getLocalNotes()
     setNotes(notes)
   }, [])
 
   const refreshList = () => {
     setSelectedNote(undefined)
-    const notes = getNotes()
+    const notes = getLocalNotes()
     setNotes([...notes])
   }
 
