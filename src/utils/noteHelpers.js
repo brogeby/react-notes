@@ -1,39 +1,48 @@
-// Create a note
-// Read a note
-// Update a note
-// Delete a note
+const initializeNotes = () => {
+  //Set Localstorage for the first time
+  localStorage.setItem('notes', JSON.stringify([]))
+  //Returns an array
+  return []
+}
 
-const notes = [
-  {
-    id: '1',
-    title: 'A note',
-    categories: ['spanish', 'english', 'german'],
-    body: 'Note 1 Description',
-  },
-  {id: '2', title: 'Note 2', categories: 'c2', body: 'Note 2 Description'},
-  {id: '3', title: 'Note 3', categories: 'c3', body: 'Note 3 Description'},
-]
+export const deleteLocalNote = (id) => {
+  const notes = getLocalNotes()
+  const indexToDelete = notes.findIndex((note) => note.id === id)
+  if (indexToDelete >= 0) notes.splice(indexToDelete, 1)
+  const stringifiedNoteArray = JSON.stringify(notes)
+  localStorage.setItem('notes', stringifiedNoteArray)
+}
 
-export const createNote = (title, categories, body) => {
-  const note = {
+export const getLocalNotes = () => {
+  let notes = localStorage.getItem('notes')
+  if (!notes) {
+    notes = initializeNotes()
+  }
+  const jsonNotes = JSON.parse(notes)
+  return jsonNotes
+}
+
+export const getNote = (id) => {
+  const notes = localStorage.getItem('notes')
+  return notes.find((note) => note.id === id)
+}
+
+export const createLocalNote = (title, categories, body) => {
+  const notes = getLocalNotes()
+
+  const newNote = {
     id: Date.now(),
     title,
     categories,
     body,
   }
-  notes.push(note)
-  return note
+  notes.push(newNote)
+  const stringifiedNoteArray = JSON.stringify(notes)
+  localStorage.setItem('notes', stringifiedNoteArray)
 }
 
-export const getNote = (id) => {
-  return notes.find((note) => note.id === id)
-}
-
-export const getNotes = () => {
-  return notes
-}
-
-export const updateNote = (id, title, categories, body) => {
+export const updateLocalNote = (id, title, categories, body) => {
+  const notes = getLocalNotes()
   const indexToUpdate = notes.findIndex((note) => note.id === id)
   const note = {
     id,
@@ -42,11 +51,6 @@ export const updateNote = (id, title, categories, body) => {
     body,
   }
   notes.splice(indexToUpdate, 1, note)
-  return notes
-}
-
-export const deleteNote = (id) => {
-  const indexToDelete = notes.findIndex((note) => note.id === id)
-  if (indexToDelete >= 0) notes.splice(indexToDelete, 1)
-  return true
+  const stringifiedNoteArray = JSON.stringify(notes)
+  localStorage.setItem('notes', stringifiedNoteArray)
 }
