@@ -1,7 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react'
+
+//Import Bootstrap
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+
+//Import Others
 import {createLocalNote, updateLocalNote, deleteLocalNote} from '../utils/noteHelpers'
 import {LanguageContext} from '../context/LanguageContext'
 

@@ -1,5 +1,9 @@
 import React, {useContext} from 'react'
+
+//Import Bootstrap
 import Button from 'react-bootstrap/Button'
+
+//Import Others
 import {LanguageContext} from '../context/LanguageContext'
 
 export default function LangButton() {
