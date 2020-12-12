@@ -12,5 +12,9 @@ const getLanguageFromString = {
 
 export default function Context({children, lang}) {
   console.log(getLanguageFromString[lang])
-  return <LanguageContext.Provider value={sv}>{children}</LanguageContext.Provider>
+  return (
+    <LanguageContext.Provider value={getLanguageFromString[lang]}>
+      {children}
+    </LanguageContext.Provider>
+  )
 }
