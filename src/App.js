@@ -55,7 +55,7 @@ function NoteWrapper() {
             {lang['new_note']}
           </Button>
           {/* <ThemeButton /> */}
-          <LangButton />
+          {/* <LangButton /> */}
           <Editor refreshList={refreshList} selectedNote={selectedNote} />
         </Col>
       </Row>
