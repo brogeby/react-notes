@@ -1,8 +1,9 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import {createLocalNote, updateLocalNote, deleteLocalNote} from '../utils/noteHelpers'
+import {LanguageContext} from '../context/LanguageContext'
 
 const STATUS_INTIAL_VALUE = ''
 
@@ -13,6 +14,8 @@ export default function Editor({selectedNote, setSelectedNote, refreshList}) {
 
   const [status, setStatus] = useState(STATUS_INTIAL_VALUE)
   const [alertVariant, setAlertVariant] = useState(STATUS_INTIAL_VALUE)
+
+  const lang = useContext(LanguageContext)
 
   const clearFields = () => {
     setTitle('')
@@ -66,11 +69,11 @@ export default function Editor({selectedNote, setSelectedNote, refreshList}) {
   return (
     <Form>
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label> {lang['title']}</Form.Label>
         <Form.Control className="mb-4" size="lg" value={title} onChange={onChangeTitle} />
-        <Form.Label>Categories</Form.Label>
+        <Form.Label> {lang['categories']}</Form.Label>
         <Form.Control className="mb-4" size="lg" value={categories} onChange={onChangeCategories} />
-        <Form.Label>Content</Form.Label>
+        <Form.Label> {lang['content']}</Form.Label>
         <Form.Control
           as="textarea"
           className="mb-4"
@@ -79,11 +82,11 @@ export default function Editor({selectedNote, setSelectedNote, refreshList}) {
           onChange={onChangeBody}
         />
         <Button variant="success" className="mr-3" onClick={onSave}>
-          Save
+          {lang['save']}
         </Button>
         {selectedNote && (
           <Button variant="danger" className="mr-3" onClick={onDelete}>
-            Delete
+            {lang['delete']}
           </Button>
         )}
         {status && <Alert variant={alertVariant}>{status}</Alert>}
