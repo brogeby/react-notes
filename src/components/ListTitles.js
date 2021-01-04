@@ -6,6 +6,8 @@ export default function ListTitles({selectedNote, setSelectedNote, notes}) {
     setSelectedNote(note)
   }
 
+  if (!notes.length) return <p>Add a note to display the list</p>
+
   return (
     <ListGroup as="ul">
       {notes.map((note, index) => (
